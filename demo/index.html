@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>dialogbox</title>
+<link rel="stylesheet" type="text/css" href="../css/dialogbox.css">
+<style type="text/css">
+body{width:502px;margin:auto;padding:0 0 20px;}
+pre{border:1px dashed #ccc;background:#eee;width:600px;padding:10px;}
+</style>
+</head>
+<body>
+<h1>Dialogbox API</h1>
+
+<a href="javascript:;" id="default">default</a>
+<pre>
+$('#default').on('click',function(){
+  var data = '&lt;div style="padding:20px;"&gt;这是内容&lt;br /&gt;这是内容&lt;br /&gt;这是内容&lt;/div&gt;';
+  $.dialogbox({
+    type:'default',
+    title:'标题',
+    content:data,
+    closeCallback:function(){
+      $.dialogbox.prompt({
+        content:'关闭了对话框',
+        time:2000 
+      });
+    }
+  });
+});
+</pre>
+<br />
+<a href="javascript:;" id="alert">alert</a>
+<pre>
+$('#alert').on('click',function(){
+  $.dialogbox({
+    type:'msg',
+    title:'提示',
+    icon:1,
+    content:'图片已上传成功！',
+    btn:['确定'],
+    call:[
+      function(){
+        $.dialogbox.close(); 
+      }
+    ]
+  });
+});
+</pre>
+<br />
+<a href="javascript:;" id="confirm">confirm</a>
+<pre>
+$('#confirm').on('click',function(){
+  $.dialogbox({
+    type:'msg',
+    title:'提示',
+    content:'您确定要删除图片吗？',
+    closeBtn:true,
+    btn:['确定','取消'],
+    call:[
+      function(){
+        $.dialogbox.close(); 
+      },
+      function(){
+        $.dialogbox.close(); 
+      }
+    ]
+  });
+});
+</pre>
+<br />
+<a href="javascript:;" id="iframe">iframe</a>
+<pre>
+$('#iframe').on('click',function(){
+  $.dialogbox({
+    type:'iframe',
+    title:'百度',
+    content:'下面是百度首页',
+    url:'http://www.baidu.com',
+    width:900,
+    height:650
+  });
+});
+</pre>
+<br />
+<a href="javascript:;" id="prompt">prompt</a>
+<pre>
+$('#prompt').on('click',function(){
+  $.dialogbox.prompt({
+    content:'提交成功',
+    time:2000 
+  });
+});
+</pre>
+
+  
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script type="text/javascript" src="../js/dialogbox.js"></script>
+<script type="text/javascript">
+
+$('#default').on('click',function(){
+  var data = '<div style="padding:20px;">这是内容<br />这是内容<br />这是内容</div>';
+  $.dialogbox({
+    type:'default',
+    title:'标题',
+    content:data,
+    closeCallback:function(){
+      $.dialogbox.prompt({
+        content:'关闭了对话框',
+        time:2000 
+      });
+    }
+  });
+});
+
+$('#alert').on('click',function(){
+  $.dialogbox({
+    type:'msg',
+    title:'提示',
+    icon:1,
+    content:'图片已上传成功！',
+    btn:['确定'],
+    call:[
+      function(){
+        $.dialogbox.close(); 
+      }
+    ]
+  });
+});
+
+$('#confirm').on('click',function(){
+  $.dialogbox({
+    type:'msg',
+    title:'提示',
+    content:'您确定要删除图片吗？',
+    closeBtn:true,
+    btn:['确定','取消'],
+    call:[
+      function(){
+        $.dialogbox.close(); 
+      },
+      function(){
+        $.dialogbox.close(); 
+      }
+    ]
+  });
+});
+
+$('#iframe').on('click',function(){
+  $.dialogbox({
+    type:'iframe',
+    title:'百度',
+    content:'下面是百度首页',
+    url:'http://www.baidu.com',
+    width:900,
+    height:650
+  });
+});
+
+$('#prompt').on('click',function(){
+  $.dialogbox.prompt({
+    content:'提交成功',
+    time:2000 
+  });
+});
+
+</script>
+</body>
+</html>

@@ -17,7 +17,7 @@
   cursor: move;
 }
 .dialogboxTitle span, .dialogboxClose, .dialogboxPrev, .dialogboxNext {
-  background: url(dialogbox_sprite.png) no-repeat;
+  background: url(../img/dialogbox_sprite.png) no-repeat;
 }
 .dialogboxTitle span {
   display: block;
