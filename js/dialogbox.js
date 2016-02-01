@@ -13,6 +13,7 @@
         height:380,//iframe 高度
         klass:'class-name',//弹窗添加class
         overlayOpacity:'0',//遮罩层透明度0~1
+        time:3000 //自动延迟隐藏时间
         icon:'0',//0:警告图标 1:打勾图标
         btn:['确定','取消'],//按钮名称，按钮个数自定
         call:[function(){
@@ -33,7 +34,7 @@
  */
 (function($){
   var btnClass = {0:'button-default',1:'button-white'};
-  var promptAuto;
+  var promptAuto,dialogboxAuto;
   $.dialogbox = function(data){
       $.dialogbox.loading(data);
       $.dialogbox.reveal(data);
@@ -63,7 +64,7 @@
       $('body').append('<div class="dialogPrompt shake">'+content+'</div>');
       $.dialogbox.position($('.dialogPrompt'));
       if(time){
-        clearInterval(promptAuto);
+        clearTimeout(promptAuto);
         promptAuto = setTimeout(function(){
           $('.dialogPrompt').stop(true,true).fadeOut(function(){$(this).remove()});
         },time);
@@ -82,6 +83,7 @@
             uri =  data ? data.url ? data.url : '' : '',
             width =  data ? data.width > 0 ? data.width : $(window).width() < 1200 ?  $(window).width()  - 150 : 1100 : '',
             height =  data ? data.height > 0 ? data.height : $(window).height()  - 250 : '',
+            time = data ? data.time ? data.time : '' : '' ,
             closeBtn =  data ? data.closeBtn ? data.closeBtn : false : false;
 
       if(data && data.type == 'msg'){/*********************************打开对话框*********************************/      
@@ -137,6 +139,12 @@
         $('.dialogboxTitle').html(title);        
       }else{
          $('.dialogboxTitle').hide();
+      }      
+      if(time){
+        clearTimeout(dialogboxAuto);
+        dialogboxAuto = setTimeout(function(){
+          $.dialogbox.close();
+        },time);
       }
       if(closeBtn){
         $('.dialogboxClose').remove();
