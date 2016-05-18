@@ -1,7 +1,7 @@
 
 /*对话弹窗
  * JQuery dialogbox
- * Email: chenfahui@datongcapital.com
+ * Email: chenfahui@foxmail.com
  * Date: 2016-01-11
 
       $.dialogbox({
