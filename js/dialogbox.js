@@ -54,8 +54,8 @@
     },
     /*初始化*/
     init:function(settings){
-      if(!$(".dialogbox").length) $('body').append($.dialogbox.settings.dialogboxHtml);
-      $(".dialogboxClose").click($.dialogbox.close);
+      $(".dialogbox,.dialogboxOverlay").remove();
+      $('body').append($.dialogbox.settings.dialogboxHtml);
     },
     prompt:function(data){
       var content = data ? data.content ? data.content : '' : '' ,
@@ -119,8 +119,10 @@
           var aIndex = $(this).index();
           if(data.call && data.call instanceof Array && data.call.length>=aIndex){
             var callBack = data.call[aIndex];
-            if(callBack instanceof Function)
+            if(callBack instanceof Function){
               callBack();
+              callBack = null;              
+            }
           }
         });
         
@@ -131,12 +133,13 @@
         content = iframeHtml;
 
       }else if(data && data.type == 'waiting'){/*********************************waiting*********************************/
-        content = '<div class="dialogLoading"></div>';
+        var tips = content ? '<div class="center pb10">'+content+'</div>' :'';
+        content = '<div class="dialogLoading"></div>'+tips;
       }
 
       $('.dialogboxBody').html(content);
       if(title){
-        $('.dialogboxTitle').html(title);        
+        $('.dialogboxTitle').show().html(title);        
       }else{
          $('.dialogboxTitle').hide();
       }      
@@ -147,7 +150,14 @@
         },time);
       }
       if(closeBtn){
-        $('.dialogboxClose').remove();
+        $('.dialogboxClose').hide();
+      }else{
+          $('.dialogboxClose').show();        
+      }
+      if(data.width){
+        $('.dialogbox').css('width',data.width);
+      }else{
+        $('.dialogbox').css('width','');        
       }
       $('.dialogbox').addClass(klass);
       $('.dialogboxClose').on('click',function(){
@@ -203,8 +213,7 @@
         divLeft = box.position().left;
       });
       $(document).mousemove(function(e){
-        if(!isClick)
-          return false;
+        if(!isClick) return;
         mouseX = e.pageX;
         mouseY = e.pageY;
         var left = parseInt(mouseX-defaultX)+divLeft;
